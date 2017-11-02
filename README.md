@@ -20,7 +20,7 @@ To check that all the depencies have been set up, execute
 		Build    : 928f77c4bc3f49d892459992fb6e1d5542cb5e86
 ```
 
-### Administration Manager set-up
+### Administration Manager local set-up
 
 To set the service, execute the following commands
 ``` 
@@ -39,5 +39,3 @@ The *urls* and *ports* for the above applications may be altered in the *appsett
 For the Administration Manager to make use of the mock up IDM, set the *UseIDM* variable in the *appsettings.production.json* to true.
 - The current IDM url is *49.118.99.72* using port *44001* 
 - For the default username & password contact Alexander Tanti.
-
-
