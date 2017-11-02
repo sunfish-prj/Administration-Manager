@@ -1,0 +1,81 @@
+@model SUNFISH.ViewModels.VirtualMachineVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VirtualMachine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperatingSystem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperatingSystem.ToString())
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StorageDiskType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StorageDiskType.ToString())
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dd><hr /></dd>
+        <dt>Subscription Plans </dt>
+        <dd></dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plans.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plans.Name)
+        </dd>
+
+        <dd><hr /></dd>
+        <dt>Virtual Network </dt>
+        <dd></dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VirtualNetwork.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualNetwork.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VirtualNetwork.AddressSpace)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualNetwork.AddressSpace)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VirtualNetwork.SubnetName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualNetwork.SubnetName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VirtualNetwork.SubnetAddressRange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualNetwork.SubnetAddressRange)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

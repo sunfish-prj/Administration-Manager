@@ -1,0 +1,56 @@
+@model SUNFISH.ViewModels.PlanTemplate
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PlanTemplate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Plan Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Backup Type
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BackupType.ToString())
+        </dd>
+        <dt>
+            Cloud Member Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CloudMemberName)
+        </dd>
+        <dt>
+            No. of CPU Cores
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfCores)
+        </dd>
+
+        <dt>
+            No. of RAM
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfRAM)
+        </dd>
+        <dt>
+            Total Storage Size
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalStorageSize)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

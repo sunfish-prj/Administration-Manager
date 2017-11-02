@@ -1,0 +1,58 @@
+@model SUNFISH.ViewModels.New.CloudMemberVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Confirm leave request ?</h3>
+<div>
+    <h4>CloudMember</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Cloud Member Id
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            Cloud Member Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Virtual Machine Id
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualMachine.Id)
+        </dd>
+        <dt>
+            Virtual Machine Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualMachine.Id)
+        </dd>
+        <dt>
+            Virtual Machine Operating System
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualMachine.OperatingSystem)
+        </dd>
+        <dt>
+            Virtual Machine Storage Disk Type
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VirtualMachine.StorageDiskType)
+        </dd>
+    </dl>
+
+    <form asp-action="Leave">
+        <div class="form-actions no-color">
+            <input type="submit" value="Leave" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

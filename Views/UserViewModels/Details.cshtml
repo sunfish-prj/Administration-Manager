@@ -1,0 +1,45 @@
+@model SUNFISH.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd><hr /></dd>
+        <dt>Services</dt>
+        <dd></dd>
+        @if (Model.UserServices != null || Model.UserServices.Count > 0)
+            {
+            @foreach (var m in Model.UserServices)
+                {
+                <dt>
+                    @Html.DisplayNameFor(model => m.Service.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => m.Service.Name)
+                </dd>
+
+                <dt><br /></dt>
+                <dd></dd>
+
+            }
+
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,55 @@
+@model SUNFISH.ViewModels.New.TenantVM
+@using SUNFISH.ViewModels
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h3>Create Tenant</h3>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Environment" class="col-md-2 control-label">Type</label>
+            <div class="col-md-10">
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" asp-for="Environment" name="optradio" value="Standard">
+                        Standard
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" asp-for="Environment" name="optradio" value="Segregated">
+                        Segregated
+                    </label>
+                </div>
+
+                <span asp-validation-for="Environment" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/test2.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

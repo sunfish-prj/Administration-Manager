@@ -1,0 +1,34 @@
+﻿@model SUNFISH.ViewModels.New.Policies.TenantAccessPolicyVM
+<h3>Tenant Access Policy</h3>
+<hr />
+
+<div class="form-group">
+    <label asp-for="Description" class="col-md-2 control-label">Description</label>
+    <div class="col-md-10">
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="TargetUri" class="col-md-2 control-label">Target URI</label>
+    <div class="col-md-10">
+        <input asp-for="TargetUri" class="form-control" />
+        <span asp-validation-for="TargetUri" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="TenantName" class="col-md-2 control-label">Tenant Name</label>
+    <div class="col-md-10">
+        <input asp-for="TenantName" class="form-control" />
+        <span asp-validation-for="TenantName" class="text-danger" />
+    </div>
+</div>
+
+<br />
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" formaction="@Url.Action("SubmitTenantAccessPolicy","AccessPolicies")" />
+    </div>
+</div>

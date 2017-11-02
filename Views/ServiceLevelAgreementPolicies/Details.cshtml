@@ -1,0 +1,81 @@
+@model SUNFISH.ViewModels.ServiceLevelAgreementPolicyViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiceLevelAgreementPolicyViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd><hr /></dd>
+        <dt>Metrics</dt>
+        <dd></dd>
+        @if (Model.ServiceLevelAgreementMetrics != null || Model.ServiceLevelAgreementMetrics.Count > 0)
+        {
+            @foreach (var m in Model.ServiceLevelAgreementMetrics)
+            {
+
+                <dt>
+                    @Html.DisplayNameFor(model => m.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => m.Name)
+                </dd>
+                <dt>Expression</dt>
+                <dd></dd>
+                <dt>
+                    @Html.DisplayNameFor(model => m.Expression.Language)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => m.Expression.Language)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => m.Expression.Operators)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => m.Expression.Operators)
+                </dd>
+                <dd><br /></dd>
+                <dt style="font-size: large">Parameters</dt>
+                <dd><br /></dd>
+                @for (int i = 0; i < m.Parameters.Count; i++)
+                {
+                    <dt>Parameter @i</dt>
+                    <dd></dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => m.Parameters[i].Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => m.Parameters[i].Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => m.Parameters[i].Type)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => m.Parameters[i].Type)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => m.Parameters[i].Value)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => m.Parameters[i].Value)
+                    </dd>
+                }
+            }
+
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

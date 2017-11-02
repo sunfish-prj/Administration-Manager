@@ -1,0 +1,67 @@
+@model SUNFISH.ViewModels.VirtualNetwork
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>VirtualNetwork</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressSpace" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AddressSpace" class="form-control addressSpace" />
+                <span asp-validation-for="AddressSpace" class="text-danger" />
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <label class="addressSpaceRange text-success"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubnetName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SubnetName" class="form-control" />
+                <span asp-validation-for="SubnetName" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubnetAddressRange" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SubnetAddressRange" class="form-control addressSubNetSpace" />
+                <span asp-validation-for="SubnetAddressRange" class="text-danger" />
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <label class="addressSubNetSpaceRange text-success"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/test2.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

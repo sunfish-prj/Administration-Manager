@@ -1,0 +1,72 @@
+@model IEnumerable<SUNFISH.Models.CloudMemberSLAPolicies>
+@using SUNFISH.ViewModels
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CloudMemberSLAPoliciesViewModel</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CloudMemberId)
+                </th>
+                <th>
+                    Cloud Member Names
+                </th>
+                <th>
+                    SLA Names
+                </th>
+                <th>
+                    SLA Value
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.FirstOrDefault().CloudMember.ID)</td>
+                <td>@Html.DisplayFor(model => model.FirstOrDefault().CloudMember.Name)</td>
+                <td>@Html.DisplayFor(model => model.FirstOrDefault().SLAPolicy.Name)</td>
+                <td>
+                    <ol type="a">
+                        @foreach (var item in Model)
+                        {
+
+                            @if (ViewData["SlaPolicies"] != null)
+                            {
+
+                                @foreach (var item2 in ViewData["SlaPolicies"] as IEnumerable<ServiceLevelAgreementPolicyViewModel>)
+                                {
+
+                                    @if (item.SLAPolicyId == item2.ID)
+                                    {
+                                        <li>
+                                            @Html.DisplayFor(model => item.Value)
+                                        </li>
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    </ol>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

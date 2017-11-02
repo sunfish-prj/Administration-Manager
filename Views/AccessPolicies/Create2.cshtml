@@ -1,0 +1,168 @@
+@model SUNFISH.ViewModels.New.AccessPolicyVM
+@using SUNFISH.ViewModels;
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    <form asp-action="Create">
+        <div class="form-horizontal">
+            <h3>AccessPolicy</h3>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="col-md-3 control-label"></label>
+                        <div class="col-md-6">
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-6" style="border-right-style: solid; border-right-width: thin;">
+                    <h4>Access From</h4>
+                    <div class="form-group">
+                        <label asp-for="ServTenantId" class="col-md-3 control-label">Tenant</label>
+                        <div class="col-md-6">
+                            <select asp-for="ServTenantId" id="ServTenant" class="form-control">
+                                @if (ViewData["TenantsVM"] != null)
+                                {
+                                    foreach (var item in ViewData["TenantsVM"] as IEnumerable<TenantVM>)
+                                    {
+                                        <option value="@item.ID">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ServServiceId" class="col-md-3 control-label">Services</label>
+                        <div class="col-md-6">
+                            <select asp-for="ServServiceId" id="ServServices" class="form-control" disabled></select>
+                        </div>
+                        <div class="col-md-3" style="height: 36px; padding-left:0;margin-left:-10px; margin-top:-5px;">
+                            <img src="~/images/loading.gif" class="img-responsive img-rounded" style="width: 60px;" id="servServiceLoad" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Access To</h4>
+                    <div class="form-group">
+                        <label asp-for="RespTenantId" class="col-md-3 control-label">Tenant</label>
+                        <div class="col-md-6">
+                            <select asp-for="RespTenantId" id="RespTenants" class="form-control">
+                                @if (ViewData["TenantsVM"] != null)
+                                {
+                                    foreach (var item in ViewData["TenantsVM"] as IEnumerable<TenantVM>)
+                                    {
+                                        <option value="@item.ID">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RespServiceId" class="col-md-3 control-label">Services</label>
+                        <div class="col-md-6">
+                            <select asp-for="RespServiceId" id="RespServices" class="form-control " disabled></select>
+                        </div>
+                        <div class="col-md-3" style="height: 36px; padding-left:0;margin-left:-10px;margin-top:-5px;">
+                            <img src="~/images/loading.gif" class="img-responsive img-rounded" style="width: 60px;" id="respServiceLoad" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h4>Data Security Options</h4>
+                <div class="form-group">
+                    <label asp-for="IsMasked" class="col-md-2 control-label">Data Masking</label>
+                    <div class="col-md-10">
+                        <input type="checkbox" asp-for="IsMasked" class="checkbox" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IsAnonymized" class="col-md-2 control-label">Data Anonymisation</label>
+                    <div class="col-md-10">
+                        <input type="checkbox" asp-for="IsAnonymized" class="checkbox" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
+            $(document).ready(function () {
+
+                $('#ServTenant').change(function () {
+                    $('#servServiceLoad').show();
+                    $.ajax({
+                        url: '/AccessPolicies/ServicesByTenantId',
+                        type: 'POST',
+                        data: { tenantId: $(this).val() },
+                        datatype: 'json',
+                        success: function (data) {
+                            var options = '';
+                            $.each(data, function () {
+                                options += '<option value="' + this.id + '">' + this.state + '</option>';
+                            });
+                            $('#ServServices').prop('disabled', false).html(options);
+                            $('#servServiceLoad').hide();
+                        }
+                    });
+                });
+
+                $('#ServTenant').change();
+
+                $('#RespTenants').change(function () {
+                    $('#respServiceLoad').show();
+                    $.ajax({
+                        url: '/AccessPolicies/ServicesByTenantId',
+                        type: 'POST',
+                        data: { tenantId: $(this).val() },
+                        datatype: 'json',
+                        success: function (data) {
+                            var options = '';
+                            $.each(data, function () {
+                                options += '<option value="' + this.id + '">' + this.state + '</option>';
+                            });
+                            $('#RespServices').prop('disabled', false).html(options);
+                            $('#respServiceLoad').hide();
+                        }
+                    });
+                });
+
+                $('#RespTenants').change();
+
+            });
+        </script>
+    }
+</body>
+</html>

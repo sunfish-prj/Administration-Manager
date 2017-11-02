@@ -1,0 +1,70 @@
+@model SUNFISH.ViewModels.New.ServiceVM
+@using SUNFISH.ViewModels;
+@{
+    ViewData["Title"] = "Create Service";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    <form asp-action="Create">
+        <div class="form-horizontal">
+            <h3>Create Service</h3>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenantId" class="col-md-2 control-label">Tenant</label>
+                <div class="col-md-10">
+                    <select asp-for="TenantId" class="form-control" name="Tenant">
+                        <option selected>Please Select</option>
+                        @if (ViewData["Tenants"] != null) {
+                            @foreach (var item in ViewData["Tenants"] as Dictionary<string, string>) {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndPointType" class="col-md-2 control-label">Protocol</label>
+                <div class="col-md-10">
+                    <select asp-for="EndPointType" asp-items="Html.GetEnumSelectList<ViewModels.Enums.OperatingSystem>()" class="form-control">
+                        <option selected>Please Select</option>
+                    </select>
+                    <span asp-validation-for="EndPointType" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        <script src="~/js/test2.js">
+        </script>
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

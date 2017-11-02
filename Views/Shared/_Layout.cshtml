@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SUNFISH</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/MyStyle.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body>
+    <div id="wrapper">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SUNFISH <br /><small style="font-size: 14px;">FAM</small></a>
+
+                @*@{
+                    if (ViewData["Tenants"] != null)
+                    {   
+                        if (((IEnumerable<string>)ViewData["Tenants"]).Count() > 0)
+                        {
+                            <ul class="nav navbar-brand top-nav">
+                                <li class="dropdown ">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tenants (@(((List<string>)ViewData["Tenants"]).First()))<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        @{foreach (string tenantName in ViewData["Tenants"] as IEnumerable<string>)
+                                            {
+                                                <li>@Html.ActionLink(@tenantName.ToString(), "IndexMod", "Home", new { tenantName = @tenantName.ToString() })</li>
+
+                                            }
+
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                                                }
+                                            }
+
+                }*@
+                @*<span class="navbar-brand">Tenant: [@ViewData["Tenant"]]</span>*@
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span class="badge">2</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li><a href="#"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Notification 1 - Error</a></li>
+                        <li><a href="#"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Notification 2 - Warning</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse sidebar-collapse">
+
+                <ul class="nav navbar-nav side-nav">
+                    <li style="padding-bottom:10px" class="pull-right">
+                        <button class="hamburger btn-block open"><i class="fa fa-fw fa-3x fa-bars pull-right"></i></button>
+                    </li>
+
+                    <li class="active">
+                        <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-dashboard icon"></i> Dashboard</a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-th icon" aria-hidden="true"></i> All Resources</a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants"><i class="fa fa-fw fa-cloud icon"></i> Tenants <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants" class="collapse">
+                            <li>
+                                <a asp-area="" asp-controller="Tenants" asp-action="Create">Create Tenant</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Tenants" asp-action="Index">Manage Tenants</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#compute"><i class="fa fa-fw fa-desktop icon"></i> Compute<i class="fa fa-fw fa-caret-down"></i></a>
+
+                        <ul id="compute" class="collapse">
+                            <li>
+                                <a asp-area="" asp-controller="VirtualMachines" asp-action="Index">Manage Virtual Machines</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#compute2"><i class="fa fa-fw fa-globe icon"></i> Virtual Network <i class="fa fa-fw fa-caret-down"></i> </a>
+                        <ul id="compute2" class="collapse">
+                            <li>
+                                <a asp-area="" asp-controller="VirtualNetworks" asp-action="Index">Manage Virtual Networks</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="VirtualNetworks" asp-action="Create">Create Virtual Network</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#compute3"><i class="fa fa-fw fa-server icon"></i> Publish Services <i class="fa fa-fw fa-caret-down"></i> </a>
+                        <ul id="compute3" class="collapse">
+                            <li>
+                                <a asp-area="" asp-controller="Services" asp-action="Index">Manage Services</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Services" asp-action="Create">Create Service</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @*<li>
+                            <a href="#"><i class="fa fa-fw fa-database icon"></i> Storage</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-line-chart icon"></i> Statistics</a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="collapse" data-target="#security"><i class="fa fa-fw fa-lock icon"></i> Security <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="security" class="collapse">
+                                <li>
+                                    <a href="#">Access Control Policies</a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="ServiceLevelAgreementPolicies" asp-action="Index">SLAM Policies</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                </ul>
+                <ul class="nav navbar-nav navbar-fixed-bottom logOff">
+                    <li>
+                        <a asp-area="" asp-controller="Login" asp-action="Index"><i class="fa fa-fw fa-power-off icon"></i><span class="logOut">Log Out</span> </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; 2016 - SUNFISH</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

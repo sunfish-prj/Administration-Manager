@@ -1,0 +1,85 @@
+@model SUNFISH.ViewModels.CloudMemberSLAPoliciesViewModel
+@using SUNFISH.ViewModels
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>CloudMemberSLAPoliciesViewModel</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CloudMemberId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="CloudMemberId" class="form-control">
+                    @if (ViewData["CloudMemberNames"] != null)
+                    {
+                        foreach (var item in ViewData["CloudMemberNames"] as IEnumerable<CloudMember>)
+                        {
+                            <option value="@item.ID">@item.Name.ToString()</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CloudMemberId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">SLA Policies</label>
+            <div class="col-md-10 policies">
+                @for (int i = 0; i < Model.SLAVM.Count(); i++)
+                {
+                    <div class="policy" id="@("policy" + (i + 1))">
+                        <label asp-for="SLAVM[0].Id" class="col-md-1 control-label @("policy" + (i+1))"></label>
+                        <select asp-for="SLAVM[i].Id" class="form-control Plans @("policy" + (i+1))" style="margin-bottom: 5px;">
+                            @if (ViewData["SLAPolicies"] != null)
+                            {
+                                @foreach (var item in ViewData["SLAPolicies"] as IEnumerable<ServiceLevelAgreementPolicyViewModel>)
+                                {
+                                    <option value="@item.ID">@item.Name.ToString()</option>
+                                }
+
+                            }
+                        </select>
+                        <label class="col-md-1  control-label @("policy"+ (i + 1))">Value</label>
+                        <input asp-for="SLAVM[i].Value" class="form-control @("policy"+ (i + 1))" type="number" />
+                        
+                    </div>
+
+                }
+                <br />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-10">
+                <button class="btn btn-primary" id="addNewPolicy" type="button"><i class="fa fa-plus-circle "></i> Add</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/test2.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

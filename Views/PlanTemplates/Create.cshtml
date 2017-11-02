@@ -1,0 +1,98 @@
+@model SUNFISH.ViewModels.PlanTemplate
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>PlanTemplate</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BackupType" class="col-md-2 control-label">Backup Type</label>
+            <div class="col-md-10">
+                <select asp-for="BackupType" class="form-control">
+                    <option value="1">Daily</option>
+                    <option value="2">Weekly</option>
+                    <option value="3">Monthly</option>
+                    <option value="4">Yearly</option>
+                </select>
+                <span asp-validation-for="BackupType" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CloudMemberName" class="col-md-2 control-label">Cloud Member Name</label>
+            <div class="col-md-10">
+                <select asp-for="CloudMemberName" class="form-control">
+                    @if (ViewData["CloudMemberNames"] != null)
+                    {
+                        foreach (var item in ViewData["CloudMemberNames"] as IEnumerable<string>)
+                        {
+                            <option value="@item">@item.ToString()</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfCores" class="col-md-2 control-label">No. of CPU Cores</label>
+            <div class="col-md-10">
+                <select asp-for="NumberOfCores" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <span asp-validation-for="NumberOfCores" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="NumberOfRAM" class="col-md-2 control-label">No. of RAM (in GB)</label>
+            <div class="col-md-10">
+                <select asp-for="NumberOfRAM" class="form-control">
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                </select>
+                <span asp-validation-for="NumberOfRAM" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TotalStorageSize" class="col-md-2 control-label">Total Storage Size (in GB)</label>
+            <div class="col-md-10">
+                <input asp-for="TotalStorageSize" type="number" class="form-control" />
+                <span asp-validation-for="TotalStorageSize" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,101 @@
+﻿@model SUNFISH.ViewModels.ServiceLevelAgreementMetric
+@{
+
+}
+<h5>Metric 1</h5>
+<div class="metric" id="metric0">
+    <div class="form-group">
+        <label asp-for="UniqueId" class="col-md-2 control-label">Unique Id</label>
+        <div class="col-md-10">
+            <input asp-for="UniqueId" class="form-control" />
+            <span asp-validation-for="UniqueId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Scale" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="Scale" class="form-control">
+                <option value="1">Nominal</option>
+                <option value="2">Ordinal</option>
+                <option value="3">Interval</option>
+                <option value="4">Ratio</option>
+            </select>
+            <span asp-validation-for="Scale" class="text-danger"></span>
+        </div>
+    </div>
+    <div id="expression0">
+        <h6>Expression Details</h6>
+        <div class="form-group">
+            <label asp-for="Expression.Metric" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Expression.Metric" class="form-control " />
+                <span asp-validation-for="Expression.Metric" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Expression.Language" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Expression.Language" class="form-control " />
+                <span asp-validation-for="Expression.Language" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Expression.Operators" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Expression.Operators" class="form-control">
+                    <option value="1">Add</option>
+                    <option value="2">Subtract</option>
+                    <option value="3">Multiply</option>
+                    <option value="4">Divide</option>
+                    <option value="5">GreaterThan</option>
+                    <option value="6">LessThan</option>
+                </select>
+                <span asp-validation-for="Expression.Operators" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" style="margin-left:50px;">
+        <div id="parameters0">
+            <div class="parameter" id="parameter0">
+                <h6>Parameter 0</h6>
+                <div class="form-group">
+                    <label asp-for="Parameters[0].Name" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Parameters[0].Name" class="form-control" />
+                        <span asp-validation-for="Parameters[0].Name" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Parameters[0].Type" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <select asp-for="Parameters[0].Type" class="form-control">
+                            <option value="1">Integer</option>
+                            <option value="2">Decimal</option>
+                            <option value="3">String</option>
+                            <option value="4">Boolean</option>
+                            <option value="5">Byte</option>
+                        </select>
+                        <span asp-validation-for="Parameters[0].Type" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Parameters[0].Value" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Parameters[0].Value" class="form-control" />
+                        <span asp-validation-for="Parameters[0].Value" class="text-danger" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-success addParameter">Add Parameter</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model SUNFISH.ViewModels.VirtualNetwork
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VirtualNetwork</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressSpace)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressSpace)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubnetName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubnetName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubnetAddressRange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubnetAddressRange)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

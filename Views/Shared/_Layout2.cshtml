@@ -1,0 +1,239 @@
+﻿@using SUNFISH.ViewModels;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SUNFISH</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/MyStyle.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    <style>
+        .fa-info-circle {
+            color: #4169E1;
+        }
+
+        .fa-exclamation-circle {
+            color: #FF0000;
+        }
+
+        .fa-exclamation-triangle {
+            color: #FFB818;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index2" class="navbar-brand">SUNFISH - <small style="font-size: 14px;">Federated Administration &amp; Monitoring</small></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li style="text-align: center;    margin-right: 550px">
+                    <a class="federationName" style="font-size:18px; font-weight: bold;">Malta Information Technology Agency Federation</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                        @if (ViewData["Alerts"] != null)
+                        {
+                            <span class="badge">
+                                @{
+                                    var alertsCount = (ViewData["Alerts"] as IEnumerable<Alert>
+                                        ).Count();
+
+                                    @("" + alertsCount);
+                                }
+                            </span>
+                                    }
+
+                        <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu alert-dropdown">
+                        @if (ViewData["Alerts"] != null)
+                        {
+                            @foreach (var item in (ViewData["Alerts"] as IEnumerable<Alert>).OrderByDescending(p => p.Id))
+                            {
+                                <li>
+                                    <a href="#">
+                                        @if (item.Type == 1)
+                                        {
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                        }
+                                        else if (item.Type == 2)
+                                        {
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                                        }
+                                        else if (item.Type == 3)
+                                        {
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                                        }
+                                        @item.Description
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> An error has occurred while publishing service!
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Server X is down!
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @ViewData["username"] <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a asp-controller="Login" asp-action="Logout"><i class="fa fa-fw fa-power-off"></i>Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse sidebar-collapse">
+
+                <ul class="nav navbar-nav side-nav">
+                    <li style="padding-bottom:10px" class="pull-right">
+                        <button class="hamburger btn-block open"><i class="fa fa-fw fa-3x fa-bars pull-right"></i></button>
+                    </li>
+
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index2"><i class="fa fa-fw fa-dashboard icon"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants"><i class="fa fa-fw fa-cloud icon"></i> Federation <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants">
+                            <li>
+                                <a asp-area="" asp-controller="CloudMembers" asp-action="Create">Join Request</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="CloudMembers" asp-action="Index">Leave Request</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants3"><i class="fa fa-fw fa-home icon"></i> Tenants<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants3">
+                            <li>
+                                <a asp-area="" asp-controller="Tenants" asp-action="Create">Create Tenant</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Tenants" asp-action="Index">Manage Tenants</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants2"><i class="fa fa-fw fa-server icon"></i> Services <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants2">
+                            <li>
+                                <a asp-area="" asp-controller="Services" asp-action="Create">Create Service</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Services" asp-action="Index">Manage Services</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants4"><i class="fa fa-fw fa-lock icon"></i>Data Security Policies<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants4">
+                            <li>
+                                <a asp-area="" asp-controller="AccessPolicies" asp-action="Create">Create Data Security Policy</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="AccessPolicies" asp-action="Index">Manage Data Security Policies</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tenants5"><i class="fa fa-fw fa-puzzle-piece icon"></i> SLA Policies <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="tenants5">
+                            <li>
+                                <a asp-area="" asp-controller="ServiceLevelAgreements" asp-action="Create">Create SLA Policy</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="ServiceLevelAgreements" asp-action="Index">Manage SLA Policies</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-fixed-bottom logOff">
+                    <li>
+                        <a asp-area="" asp-controller="Login" asp-action="Logout"><i class="fa fa-fw fa-power-off icon"></i><span class="logOut">Log Out</span> </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; 2017 - SUNFISH</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script src="https://use.fontawesome.com/fe8efc0741.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,157 @@
+@model SUNFISH.ViewModels.New.ServiceLevelAgreementVM
+@using SUNFISH.ViewModels
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h3>Policy Details</h3>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-3">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TenantId" class="col-md-2 control-label">Tenant</label>
+            <div class="col-md-3">
+                <select asp-for="TenantId" id="ServTenant" class="form-control">
+                    @if (ViewData["TenantNames"] != null)
+                    {
+                        foreach (var item in ViewData["TenantNames"] as Dictionary<string, string>)
+                        {
+                            <option value="@item.Value">@item.Key</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ServiceId" class="col-md-2 control-label">Services</label>
+            <div class="col-md-3">
+                <select asp-for="ServiceId" id="ServServices" class="form-control" disabled></select>
+            </div>
+            <div class="col-md-1" style="height: 36px; padding-left:0;margin-left:-10px; margin-top:-5px;">
+                <img src="~/images/loading.gif" class="img-responsive img-rounded" style="width: 60px;" id="servServiceLoad" />
+            </div>
+        </div>
+        <h3>Metrics</h3>
+        <hr />
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Availability" class="col-md-4 control-label">Availability (%)</label>
+                <div class="col-md-6">
+                    <input asp-for="Availability" class="form-control" />
+                    <span asp-validation-for="Availability" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Connections" class="col-md-4 control-label">Connections</label>
+                <div class="col-md-6">
+                    <input asp-for="Connections" class="form-control" />
+                    <span asp-validation-for="Connections" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiskSpace" class="col-md-4 control-label">Disk Space (%)</label>
+                <div class="col-md-6">
+                    <input asp-for="DiskSpace" class="form-control" />
+                    <span asp-validation-for="DiskSpace" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemorySize" class="col-md-4 control-label">Memory Size (%)</label>
+                <div class="col-md-6">
+                    <input asp-for="MemorySize" class="form-control" />
+                    <span asp-validation-for="MemorySize" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Throughput" class="col-md-4 control-label">Throughput (Gbps)</label>
+                <div class="col-md-6">
+                    <input asp-for="Throughput" class="form-control" />
+                    <span asp-validation-for="Throughput" class="text-danger" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Bandwidth" class="col-md-4 control-label">Bandwidth (Mbps)</label>
+                <div class="col-md-6">
+                    <input asp-for="Bandwidth" class="form-control" />
+                    <span asp-validation-for="Bandwidth" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CPUPower" class="col-md-4 control-label">CPU Power (%)</label>
+                <div class="col-md-6">
+                    <input asp-for="CPUPower" class="form-control" />
+                    <span asp-validation-for="CPUPower" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Elasticity" class="col-md-4 control-label">Elasticity (s)</label>
+                <div class="col-md-6">
+                    <input asp-for="Elasticity" class="form-control" />
+                    <span asp-validation-for="Elasticity" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponseTime" class="col-md-4 control-label">Response Time (ms)</label>
+                <div class="col-md-6">
+                    <input asp-for="ResponseTime" class="form-control" />
+                    <span asp-validation-for="ResponseTime" class="text-danger" />
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/test2.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+
+            $('#ServTenant').change(function () {
+                $('#servServiceLoad').show();
+                $.ajax({
+                    url: '/ServiceLevelAgreements/GetServicesOfTenant',
+                    type: 'POST',
+                    data: { tenantId: $(this).val() },
+                    datatype: 'json',
+                    success: function (data) {
+                        var options = '';
+                        $.each(data, function () {
+                            options += '<option value="' + this + '">' + this + '</option>';
+                        });
+                        $('#ServServices').prop('disabled', false).html(options);
+                        $('#servServiceLoad').hide();
+                    }
+                });
+            });
+
+            $('#ServTenant').change();
+        });
+    </script>
+}

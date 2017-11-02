@@ -1,0 +1,58 @@
+﻿@model SUNFISH.ViewModels.New.DataSecurityPolicyVM<SUNFISH.ViewModels.New.Policies.PolicyVM>
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form asp-action="Create">
+        <div class="form-horizontal">
+            <hr/>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Policy Type</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("Name", ViewData["policyTypes"] as SelectList, new { id = "DataSecurityPolicyTypeDropdown", @class = "form-control" })
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="data-security-policy-container">
+                @Html.Partial(Model.PolicyVM.BaseViewPath + "Create.cshtml", Model.PolicyVM)
+            </div>
+
+            <div class="col-md-3" style="height: 36px; padding-left:0;margin-left:-10px; margin-top:-5px;">
+                <img src="~/images/loading.gif" class="img-responsive img-rounded" style="width: 60px; display:none" id="DataSecurityPolicyTypeDropdownLoader"  />
+            </div>
+
+
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
+            $(document).ready(function () {
+                $('#DataSecurityPolicyTypeDropdown').change(function () {
+                    $('.data-security-policy-container').hide();
+                    $('#DataSecurityPolicyTypeDropdownLoader').show()
+                    $(".data-security-policy-container").load("/AccessPolicies/GetDataSecurityPolicyForm?policyType=" + encodeURIComponent(this.value));
+                    $('#DataSecurityPolicyTypeDropdownLoader').hide();
+                    $('.data-security-policy-container').show();
+                });
+            });
+        </script>
+    }
+</body>
+</html>

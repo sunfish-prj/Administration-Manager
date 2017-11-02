@@ -1,0 +1,42 @@
+@model IEnumerable<SUNFISH.Models.CloudMemberSLAPolicies>
+@using SUNFISH.ViewModels
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CloudMemberSLAPoliciesViewModel</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    PolicyName
+                </th>
+
+                <th>
+                    Cloud Member Names
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.Name)</td>
+                    <td>@Html.DisplayFor(model => item.CloudMember.Name)</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.First().CloudMemberId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

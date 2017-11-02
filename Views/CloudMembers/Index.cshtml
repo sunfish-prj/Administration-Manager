@@ -1,0 +1,41 @@
+@model IEnumerable<SUNFISH.ViewModels.New.CloudMemberVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h3>Manage Joins</h3>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cloud Member Id</th>
+            <th>Cloud Member Name</th>
+            <th>Virtual Machine Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VirtualMachine.Name)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Leave" asp-route-id="@item.Id">Leave</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

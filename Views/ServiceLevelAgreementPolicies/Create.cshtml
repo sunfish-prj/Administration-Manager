@@ -1,0 +1,171 @@
+@model SUNFISH.ViewModels.ServiceLevelAgreementPolicyViewModel
+@using SUNFISH.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create" id="createForm">
+    <div class="form-horizontal">
+        <h3>ServiceLevelAgreementPolicyViewModel</h3>
+        <hr />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label">Policy Name</label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <h4>Metrics Details</h4>
+        <!--<h4>Metric Details</h4>
+            <div class="form-group">
+                <label asp-for="MetricName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="MetricName" class="form-control" />
+                    <span asp-validation-for="MetricName" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetricUnit" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="MetricUnit" class="form-control">
+                        <option value="1">Seconds</option>
+                        <option value="2">Bytes</option>
+                    </select>
+                    <span asp-validation-for="MetricUnit" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetricScale" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="MetricScale" class="form-control">
+                        <option value="1">Nominal</option>
+                        <option value="2">Ordinal</option>
+                        <option value="3">Interval</option>
+                        <option value="4">Ratio</option>
+                    </select>
+                    <span asp-validation-for="MetricScale" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GradeOfImportance" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="GradeOfImportance" class="form-control" />
+                    <span asp-validation-for="GradeOfImportance" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetricNote" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="MetricNote" class="form-control" />
+                    <span asp-validation-for="MetricNote" class="text-danger" />
+                </div>
+            </div>
+            <hr />
+            <h4>Parameter Details</h4>
+            <div class="form-group">
+                <label asp-for="ParameterName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="ParameterName" class="form-control" />
+                    <span asp-validation-for="ParameterName" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ParameterType" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="ParameterType" class="form-control">
+                        <option value="1">Integer</option>
+                        <option value="2">Decimal</option>
+                        <option value="3">String</option>
+                        <option value="4">Boolean</option>
+                        <option value="5">Byte</option>
+                    </select>
+                    <span asp-validation-for="ParameterType" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParameterNote" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="ParameterNote" class="form-control" />
+                    <span asp-validation-for="ParameterNote" class="text-danger" />
+                </div>
+            </div>
+            <hr />
+            <h4>Rule Details</h4>
+            <div class="form-group">
+                <label asp-for="RuleName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="RuleName" class="form-control" />
+                    <span asp-validation-for="RuleName" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RuleExpression" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="RuleExpression" class="form-control" />
+                    <span asp-validation-for="RuleExpression" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsequenceOfViolation" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="ConsequenceOfViolation" class="form-control" />
+                    <span asp-validation-for="ConsequenceOfViolation" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RuleNote" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="RuleNote" class="form-control" />
+                    <span asp-validation-for="RuleNote" class="text-danger" />
+                </div>
+            </div>
+            <hr />
+            <h4>Dependency Details</h4>
+            <div class="form-group">
+                <label asp-for="DependencyName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DependencyName" class="form-control" />
+                    <span asp-validation-for="DependencyName" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DependencyNote" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DependencyNote" class="form-control" />
+                    <span asp-validation-for="DependencyNote" class="text-danger" />
+                </div>
+            </div>-->
+        <div id="metrics">
+            @Html.EditorFor(model => model.ServiceLevelAgreementMetrics)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-10">
+                <button class="btn btn-primary" id="addNew" type="button"><i class="fa fa-plus-circle"></i> Add</button>
+            </div>
+        </div>
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/test.js">
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
