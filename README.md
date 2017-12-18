@@ -25,7 +25,7 @@ To check that all the depencies have been set up, execute
 To set the service, execute the following commands
 ``` 
   $ git clone https://github.com/sunfish-prj/Administration-Manager.git
-  $ cd Administration-Manager
+  $ cd Administration-Manager/manager
   $ dotnet SUNFISH.dll
 ```
 The server is now running and listening on the port chosen in the *hosting.json*. file (e.g. 80).  
