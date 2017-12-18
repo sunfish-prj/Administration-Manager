@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="Federation Name"
+ targetNamespace="Coalition Contract"
+ xmlns="FaaM Contract"
+ elementFormDefault="qualified">
+ 
+ <!-- meta informations of the federation itself -->
+ <xs:element name="federationObjective">
+   <xs:element name="name" type="xs:string"/>
+   <xs:element name="objective" type="xs:string"/>
+   <xs:element name="numMembersLimit" type="xs:string"/>
+   <xs:element name="numResourcesLimit" type="xs:string"/>
+ </xs:element>
+
+ <!-- meta information of the member -->
+ <xs:element name="federationMember">
+   <xs:complexType mixed="false">
+     <!-- <xs:element name="id" type="xs:string"/> -->
+     <xs:sequence>
+       <xs:element name="name" type="xs:string"/>
+       <xs:element name="id" type="xs:string"/>
+       <!-- it can be used a mixed complexType (as true) if -->
+       <!-- the ID of the member is expressed in Integer -->
+       <!-- <xs:element name="id" type="xs:positiveInteger"/> -->
+       <xs:element name="description" type="xs:string"/>
+       <xs:element name="locality/region info" type="xs:string"/>
+     </xs:sequence>
+   </xs:complexType>
+ </xs:element>
+
+ <!-- in this section there are meta informations  -->
+ <!-- about the services offered by the federation  -->
+ <xs:element name="federationServices">
+   <!-- for each service are defined its meta information -->
+   <xs:element name="service1">
+     <xs:sequence>
+       <xs:element name="name" type="xs:string"/>
+       <xs:element name="URL" type="xs:string"/>
+       <xs:element name="serviceLevels" type="xs:string"/>
+       <xs:element name="securityPolicies" type="xs:string"/>
+     </xs:sequence>
+   </xs:element>
+   <!-- . . . -->
+   <xs:element name="serviceN">
+     <xs:sequence>
+       <xs:element name="name" type="xs:string"/>
+       <xs:element name="URL" type="xs:string"/>
+       <xs:element name="serviceLevels" type="xs:string"/>
+       <xs:element name="securityPolicies" type="xs:string"/>
+     </xs:sequence>
+   </xs:element>
+ </xs:element>
+
+ <!-- these are the common policies that members -->
+ <!-- must accept if they want to join the federation -->
+ <xs:element name="federationPolicies">
+   <!-- list of policies of the federation -->
+   <xs:sequence>
+     <xs:element name="policy1" type="xs:string"/>
+     <xs:element name="policy2" type="xs:string"/>
+     <!-- . . . -->
+     <xs:element name="policyN" type="xs:string"/>
+   </xs:sequence>
+ </xs:element>
+
+ <!-- parameters to be used to carry out the -->
+ <!-- governance of the federation -->
+ <xs:element name="federationGovernance">
+   <!-- e.g. list of accepted proposals -->
+   <xs:element name="proposalType01">    
+     <xs:sequence>
+       <xs:element name="description" type="xs:string"/>
+       <xs:element name="quorum" type="xs:string"/>
+     </xs:sequence>
+   </xs:element>
+   <!-- e.g. JOIN -->
+   <!-- <xs:element name="join">    
+          <xs:sequence>
+            <xs:element name="description" type="the join operation ..."/>
+            <xs:element name="quorum" type="unanimity"/>
+          </xs:sequence>
+        </xs:element>  -->   
+   	<!-- . . . -->
+    <xs:element name="proposalTypeN">    
+      <xs:sequence>
+        <xs:element name="description" type="xs:string"/>
+        <xs:element name="quorum" type="xs:string"/>
+      </xs:sequence>
+    </xs:element>    
+  </xs:element>
+</xs:schema>   
