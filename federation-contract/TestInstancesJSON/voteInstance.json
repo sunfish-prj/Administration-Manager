@@ -1,0 +1,7 @@
+{
+    "fcn":"vote",
+    "args":["memberCloud02", "proposal01", "accept"]
+}
+
+// to invoke it from terminal inside a peer in the docker cli bash:
+// peer chaincode invoke -o orderer0:7050  --tls true --cafile $ORDERER_CA -C mychannel -n governance -c '{"Args":["vote","memberCloud02", "proposal01", "accept"]}' 

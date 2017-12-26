@@ -1,0 +1,8 @@
+{
+    "fcn":"submitProposal",
+    "args":["memberCloud", "proposal01", "In this test proposal, we want to propose...", "join", "unanimity", "3"]
+}
+// the functoin for the submission of teh proposaladds another field to 
+// indicate the status of the proposal. Initially it is "pending".
+// to invoke it from terminal inside a peer in the docker cli bash:
+// peer chaincode invoke -o orderer0:7050  --tls true --cafile $ORDERER_CA -C mychannel -n governance -c '{"Args":["submitProposal,"memberCloud", "proposal01", "In this test proposal, we want to propose...", "join", "unanimity", "3"]}' 
